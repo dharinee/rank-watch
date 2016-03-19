@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html >
+	<head lang="en">
+		<meta charset="UTF-8">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.2.4.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="controller.js"></script>
+		<script src="dataFactory.js"></script>
+	</head>
+
+
+	<body ng-app='app' ng-controller='MainController' ng-cloak>
+	<script type="text/ng-template" id="treeLevel.html">
+		<ul>
+			<li ng-repeat="item in items">
+				<div class="font-style">{{item.text}}
+					<span class="glyphicon glyphicon-chevron-down spacing"
+					ng-model="item.showSubItem"
+					ng-init="item.showSubItem = false"
+					ng-click = "toggle(item)"
+					ng-if = "item.children.length != 0"></span>
+					<span class="glyphicon glyphicon-plus spacing"
+					   data-toggle="modal"
+					   ng-click="open(item)"></span>
+				</div>
+
+
+				<div ng-include=" 'treeLevel.html'"
+					 onload="items = item.children"
+					 ng-show = "item.showSubItem">
+				</div>
+
+
+			</li>
+		</ul>
+	</script>
+
+	<div ng-include=" 'treeLevel.html' ">
+	</div>
+	</body>
+
+</html>
